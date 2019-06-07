@@ -1,60 +1,43 @@
 import React, { useEffect, useState } from "react";
-import Recipe from "./Recipe";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./App.css";
+import Recipes from "./recipes";
+import Nav from "./Nav";
 
 function App() {
-  const APP_ID = "dc4ea3df";
-  const APP_keys = "fcb66ab813beb73ebbd2b4d6d1fb1228";
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
-  const [query, setQurey] = useState("chicken");
-  useEffect(() => {
-    getRecipes();
-  }, [query]);
-
-  const getRecipes = async () => {
-    const response = await fetch(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_keys}`
-    );
-    const data = await response.json();
-    setRecipes(data.hits);
-    console.log(data);
-    console.log(data.hits);
-  };
-  const updateSearch = e => {
-    setSearch(e.target.value);
-    console.log(search);
-  };
-  const getSearch = e => {
-    e.preventDefault();
-    setQurey(search);
-  };
   return (
-    <div className="app">
-      <form action="" className="search-form" onSubmit={getSearch}>
-        <input
-          type="text"
-          className="search-bar"
-          value={search}
-          onChange={updateSearch}
-        />
-        <button className="search-button" type="submit">
-          search
-        </button>
-      </form>
-      <div className="content">
-        {recipes.map(recipe => (
-          <Recipe
-            key={recipe.recipe.url}
-            title={recipe.recipe.label}
-            calories={recipe.recipe.calories}
-            img={recipe.recipe.image}
-            ingredients={recipe.recipe.ingredients}
-          />
-        ))}
+    <Router>
+      <div className="App">
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/recipe" exact component={Recipes} />
+          <Route path="/recipe/:food" component={Recipes} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
+
+const Home = () => {
+  const [food, setFood] = useState("");
+  const updatefood = e => {
+    setFood(e.target.value);
+    console.log(food);
+  };
+  return (
+    <div className="home">
+      <h1>welcome </h1>
+      <h2>let's find your ingredients</h2>
+      <form action="">
+        <input type="text" value={food} onChange={updatefood} />
+        <button>
+          <Link to={`/recipe/${food}`}>search it </Link>
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default App;

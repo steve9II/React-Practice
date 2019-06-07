@@ -1,5 +1,36 @@
-.app {
+.App {
     background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+    height: 100vh;
+}
+
+.home {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px;
+    background: #fed6e3;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin-right: 30px;
 }
 
 .search-form {
@@ -10,6 +41,11 @@
 
 .search-bar {
     width: 30%;
+}
+
+.page {
+    display: flex;
+    justify-content: space-between;
 }
 
 .content {
@@ -33,6 +69,8 @@
 
 .ingredients {
     position: absolute;
+    width: 100%;
+    height: 100%;
     display: none;
     flex-direction: column;
     justify-content: space-around;
